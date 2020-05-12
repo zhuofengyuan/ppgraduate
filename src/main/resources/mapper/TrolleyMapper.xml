@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.TrolleyDao">
+    <insert id="insertTrolley" parameterType="com.pp.ppgraduate.entity.TrolleyModel">
+        INSERT INTO db_car.g_trolley
+        (goods_id, open_id, goods_num, price)
+        VALUES
+        (#{goodsId}, #{openId}, #{goodsNum}, #{price})
+    </insert>
+
+    <delete id="deleteTrolley" parameterType="com.pp.ppgraduate.entity.TrolleyModel">
+        DELETE FROM db_car.g_trolley
+        WHERE trolley_id = #{trolleyId}
+    </delete>
+
+    <update id="updateTrolley" parameterType="com.pp.ppgraduate.entity.TrolleyModel">
+        UPDATE db_car.g_trolley
+        SET
+        <if test="goodsNum != null and goodsNum != 0">
+            goods_num = #{goodsNum},
+        </if>
+        <if test="price != null">
+            price = #{price}
+        </if>
+        WHERE trolley_id = #{trolleyId}
+    </update>
+
+    <select id="selectTrolley" parameterType="com.pp.ppgraduate.entity.TrolleyModel" resultType="com.pp.ppgraduate.entity.TrolleyModel">
+        SELECT t.goods_id, g.goods_name, g.goods_photo1 goods_photo, t.goods_num, t.price, g.goods_stock
+        FROM db_car.g_trolley t
+        LEFT JOIN db_car.g_goods g ON g.goods_id = t.goods_id
+        WHERE trolley_id = #{trolleyId}
+    </select>
+
+    <select id="selectAllTrolley" parameterType="com.pp.ppgraduate.entity.TrolleyModel" resultType="com.pp.ppgraduate.entity.TrolleyModel">
+        SELECT t.trolley_id, t.goods_id, g.goods_name, g.goods_photo1 goods_photo, t.goods_num, t.price, g.goods_stock
+        FROM db_car.g_trolley t
+        LEFT JOIN db_car.g_goods g ON g.goods_id = t.goods_id
+        WHERE open_id = #{openId}
+    </select>
+
+    <select id="selectTrolleyByOAG" resultType="com.pp.ppgraduate.entity.TrolleyModel" parameterType="com.pp.ppgraduate.entity.TrolleyModel">
+        select * from db_car.g_trolley
+        where open_id = #{openId} and goods_id = #{goodsId}
+    </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.CollectDao">
+    <insert id="insertCollect" parameterType="com.pp.ppgraduate.entity.CollectModel">
+        insert into db_car.g_collect
+        (open_id, goods_id) values
+        (#{openId}, #{goodsId})
+    </insert>
+
+    <delete id="deleteCollect" parameterType="com.pp.ppgraduate.entity.CollectModel">
+        delete from db_car.g_collect
+        where open_id = #{openId} and goods_id = #{goodsId}
+    </delete>
+
+    <select id="selectAllCollect" parameterType="com.pp.ppgraduate.entity.CollectModel" resultType="com.pp.ppgraduate.entity.CollectModel">
+        select  c.collect_id, c.goods_id, g.goods_name, g.goods_photo1 goods_photo
+        from db_car.g_collect c
+        left join db_car.g_goods g on c.goods_id = g.goods_id
+        where open_id = #{openId}
+    </select>
+
+    <select id="isCollect" resultType="com.pp.ppgraduate.entity.CollectModel" parameterType="com.pp.ppgraduate.entity.CollectModel">
+        select * from db_car.g_collect
+        where open_id = #{openId} and goods_id = #{goodsId}
+    </select>
+</mapper>

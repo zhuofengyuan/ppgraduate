@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.GoodsDao">
+    <select id="selectGoods" parameterType="com.pp.ppgraduate.entity.GoodsModel" resultType="com.pp.ppgraduate.entity.GoodsModel">
+        SELECT * FROM db_car.g_goods
+        WHERE goods_id = #{goodsId}
+    </select>
+
+    <select id="selectGoodsByWeight" parameterType="com.pp.ppgraduate.entity.GoodsModel" resultType="com.pp.ppgraduate.entity.GoodsModel">
+        SELECT * FROM db_car.g_goods
+        ORDER BY goods_weight DESC
+    </select>
+
+    <select id="selectGoodsByLike" parameterType="com.pp.ppgraduate.entity.GoodsModel" resultType="com.pp.ppgraduate.entity.GoodsModel">
+        SELECT * FROM db_car.g_goods
+        WHERE goods_name like #{goodsName}
+    </select>
+
+    <update id="updateGoodsWeight" parameterType="com.pp.ppgraduate.entity.GoodsModel">
+        UPDATE db_car.g_goods SET
+        goods_weight = #{goodsWeight}
+        WHERE goods_id = #{goodsId}
+    </update>
+</mapper>

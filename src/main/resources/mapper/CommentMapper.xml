@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.CommentDao">
+    <insert id="insertComment" parameterType="com.pp.ppgraduate.entity.CommentModel">
+        insert into db_car.g_comment
+        (comment_content, goods_id, open_id, commentTime, attitude)
+        values
+        (#{commentContent}, #{goodsId}, #{openId}, #{commentTime}, #{attitude})
+    </insert>
+
+    <update id="updateComment" parameterType="com.pp.ppgraduate.entity.CommentModel">
+        update db_car.g_comment set
+        <if test="commentContent != null and commentContent != ''">
+            comment_content = #{commentContent},
+        </if>
+        <if test="attitude != null and attitude != ''">
+            attitude = #{attitude}
+        </if>
+        where comment_id = #{commentId}
+    </update>
+
+    <delete id="deleteComment" parameterType="com.pp.ppgraduate.entity.CommentModel">
+        delete from db_car.g_comment
+        where comment_id = #{commentId}
+    </delete>
+
+    <select id="selectComment" parameterType="com.pp.ppgraduate.entity.CommentModel" resultType="com.pp.ppgraduate.entity.CommentModel">
+        select
+        c.comment_content, c.goods_id, c.open_id, c.comment_time,c.attitude, u.avatar, u.user_name, g.goods_photo1 goods_photo, g.goods_name
+        from db_car.g_comment c
+        left join db_car.g_user u on u.open_id = c.open_id
+        left join db_car.g_goods g on g.goods_id = c.goods_id
+        where c.comment_id = #{commentId}
+    </select>
+
+    <select id="selectAllComment" resultType="com.pp.ppgraduate.entity.CommentModel" parameterType="com.pp.ppgraduate.entity.CommentModel">
+        select
+        c.comment_id, c.comment_content, c.goods_id, c.open_id, c.comment_time,c.attitude, u.avatar, u.user_name, g.goods_name
+        from db_car.g_comment c
+        left join db_car.g_user u on u.open_id = c.open_id
+        left join db_car.g_goods g on g.goods_id = c.goods_id
+        where c.goods_id = #{goodsId}
+    </select>
+</mapper>

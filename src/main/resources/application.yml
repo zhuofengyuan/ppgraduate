@@ -1,0 +1,51 @@
+server:
+  port: 7777
+
+#eureka:
+  #client:
+    #serviceUrl:
+      #defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: ppgraduate
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_car?serverTimezone=UTC&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+    max-active: 100
+    min-idle: 8
+    initial-size: 5
+  profiles:
+    active: dev
+  #redis:
+    #host: 47.99.118.183
+    #password: wobugaoxing
+    #port: 6379
+    #timeout: 60000ms
+    #database: 8
+    #lettuce:
+      #pool:
+        #max-active: 100
+        #max-wait: -1ms
+        #max-idle: 8
+        #min-idle: 0
+
+  metrics:
+    servo:
+      enabled: false
+#  jackson:
+#    default-property-inclusion: non_null
+#
+
+# 2020.05.10 fengtoos annotation
+#mybatis:
+#  typeAliasesPackagecom: com.pp.ppgraduate.dao.*
+#  mapperLocations: classpath:mapper/*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+logging:
+  level:
+    com.pp.ppgraduate: debug

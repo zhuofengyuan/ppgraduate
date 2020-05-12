@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.ConsigneeDao">
+    <insert id="insertConsignee" parameterType="com.pp.ppgraduate.entity.ConsigneeModel">
+        INSERT INTO db_car.g_consignee
+        (consignee_address, open_id, consignee_name, consignee_phone, consignee_area, consignee_default, consignee_door)
+        VALUES
+        (#{consigneeAddress}, #{openId}, #{consigneeName}, #{consigneePhone}, #{consigneeArea}, #{consigneeDefault}, #{consigneeDoor})
+    </insert>
+
+    <update id="updateConsignee" parameterType="com.pp.ppgraduate.entity.ConsigneeModel">
+        UPDATE db_car.g_consignee SET
+        <if test="consigneeAddress != null and consigneeAddress != ''">
+            consignee_address = #{consigneeAddress},
+        </if>
+        <if test="consigneeArea != null and consigneeArea != ''">
+            consignee_area = #{consigneeArea},
+        </if>
+        <if test="consigneeName != null and consigneeName != ''">
+            consignee_name = #{consigneeName},
+        </if>
+        <if test="consigneePhone != null and consigneePhone != ''">
+            consignee_phone = #{consigneePhone},
+        </if>
+        <if test="consigneeDefault != null and consigneeDefault != ''">
+            consignee_default = #{consigneeDefault},
+        </if>
+        <if test="consigneeDoor != null and consigneeDoor != ''">
+            consignee_door = #{consigneeDoor}
+        </if>
+        WHERE consignee_id = #{consigneeId}
+    </update>
+
+    <delete id="deleteConsignee" parameterType="com.pp.ppgraduate.entity.ConsigneeModel">
+        DELETE FROM db_car.g_consignee
+        WHERE consignee_id = #{consigneeId}
+    </delete>
+
+    <select id="selectConsignee" parameterType="com.pp.ppgraduate.entity.ConsigneeModel" resultType="com.pp.ppgraduate.entity.ConsigneeModel">
+        SELECT *
+        FROM db_car.g_consignee
+        WHERE consignee_id = #{consigneeId}
+    </select>
+
+    <select id="selectAllConsignee" parameterType="com.pp.ppgraduate.entity.UserModel" resultType="com.pp.ppgraduate.entity.ConsigneeModel">
+        SELECT *
+        FROM db_car.g_consignee
+        WHERE open_id = #{openId}
+    </select>
+</mapper>

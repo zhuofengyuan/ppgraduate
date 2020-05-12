@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.OrderDao">
+    <insert id="insertOrder" parameterType="com.pp.ppgraduate.entity.OrderModel">
+        INSERT INTO db_car.g_order
+        (open_id, consignee_id, order_num, price, order_status, order_time, order_remark)
+        VALUES
+        (#{openId}, #{consigneeId}, #{orderNum}, #{price}, #{orderStatus}, #{orderTime}, #{orderRemark})
+    </insert>
+
+    <update id="updateOrder" parameterType="com.pp.ppgraduate.entity.OrderModel">
+        update db_car.g_order
+        set
+        <if test="orderStatus != null and orderStatus != ''">
+            order_status = #{orderStatus}
+        </if>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteOrder" parameterType="com.pp.ppgraduate.entity.OrderModel">
+        delete from db_car.g_order
+        where order_id = #{orderId}
+    </delete>
+
+    <select id="selectOrder" parameterType="com.pp.ppgraduate.entity.OrderModel" resultType="com.pp.ppgraduate.entity.OrderModel">
+        SELECT * FROM db_car.g_order o
+        LEFT JOIN db_car.g_order_item oi ON o.order_id = oi.order_id
+        WHERE order_time = #{orderTime}
+    </select>
+
+    <select id="selectAllOrder" parameterType="com.pp.ppgraduate.entity.UserModel" resultType="com.pp.ppgraduate.entity.OrderModel">
+        SELECT * FROM db_car.g_order o
+        LEFT JOIN db_car.g_order_item oi ON o.order_id = oi.order_id
+        LEFT JOIN db_car.g_goods g ON g.goods_id = oi.goods_id
+        WHERE open_id = #{openId}
+    </select>
+
+</mapper>

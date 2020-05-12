@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.OrderItemDao">
+    <insert id="insertOrderItem" parameterType="com.pp.ppgraduate.entity.OrderModel">
+        INSERT INTO db_car.g_order_item
+        (order_id, goods_id, goods_num, goods_name, goods_photo)
+        VALUES
+        <foreach collection="orderItemModels" item="item" separator=",">
+            (#{item.orderId}, #{item.goodsId}, #{item.goodsNum}, #{item.goodsName}, #{item.goodsPhoto})
+        </foreach>
+    </insert>
+
+    <delete id="deleteOrderItem" parameterType="com.pp.ppgraduate.entity.OrderModel">
+        delete from db_car.g_order_item
+        where order_id = #{orderId}
+    </delete>
+
+    <select id="selectOrderItem" parameterType="com.pp.ppgraduate.entity.OrderModel" resultType="com.pp.ppgraduate.entity.OrderItemModel">
+        select * from db_car.g_order_item
+        where order_id = #{orderId}
+    </select>
+</mapper>

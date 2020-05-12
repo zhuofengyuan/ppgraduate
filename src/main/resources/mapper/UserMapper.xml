@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.UserDao">
+    <insert id="insertUser" parameterType="com.pp.ppgraduate.entity.UserModel">
+        INSERT INTO db_car.g_user
+        (user_name, avatar, open_id)
+        VALUES
+        (#{nickName}, #{avatarUrl}, #{openId})
+    </insert>
+
+    <select id="login" parameterType="String" resultType="com.pp.ppgraduate.entity.UserModel">
+        SELECT * FROM db_car.g_user
+        WHERE open_id = #{openid}
+    </select>
+
+    <update id="updateUser" parameterType="com.pp.ppgraduate.entity.UserModel">
+        UPDATE db_car.g_user SET
+        <if test="userName != null and userName != ''">
+            user_name = #{userName}
+        </if>
+        <if test="gender != null and gender != ''">
+            gender = #{gender}
+        </if>
+        <if test="avator != null and avator != ''">
+            avatar = #{avatar}
+        </if>
+        WHERE open_id = #{openid}
+    </update>
+
+    <select id="selectUser" parameterType="com.pp.ppgraduate.entity.UserModel" resultType="com.pp.ppgraduate.entity.UserModel">
+        SELECT * FROM db_car.g_user WHERE open_id = #{openid}
+    </select>
+</mapper>

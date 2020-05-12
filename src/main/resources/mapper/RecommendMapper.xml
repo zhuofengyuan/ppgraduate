@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.ppgraduate.dao.RecommendDao">
+    <insert id="insertRecommend" parameterType="com.pp.ppgraduate.entity.RecommendModel">
+        insert into db_car.g_recommend
+        (open_id, goods_id)
+        values (#{openId}, #{goodsId})
+    </insert>
+
+    <delete id="deleteRecommend" parameterType="com.pp.ppgraduate.entity.RecommendModel">
+        delete from db_car.g_recommend
+        where goods_id = #{goodsId} and open_id = #{openId}
+    </delete>
+
+    <select id="isRecommend" parameterType="com.pp.ppgraduate.entity.RecommendModel" resultType="com.pp.ppgraduate.entity.RecommendModel">
+        select * from db_car.g_recommend
+        where goods_id = #{goodsId} and open_id = #{openId}
+    </select>
+</mapper>
