@@ -17,4 +17,8 @@
         SELECT *
         FROM db_car.g_sort
     </select>
+
+    <select id="selectSortItemBySortId" resultType="com.pp.ppgraduate.entity.SortItemModel">
+        SELECT * FROM g_sort_item where sort_id = #{id}
+    </select>
 </mapper>

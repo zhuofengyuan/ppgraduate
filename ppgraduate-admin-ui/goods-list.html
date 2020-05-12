@@ -34,19 +34,10 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5" lay-filter="main-form">
                         <div class="layui-inline layui-show-xs-block">
-                            <select name="dept">
-                                <option value="">所有</option>
-                                <option value="流通事业部">流通事业部</option>
-                                <option value="家居事业部">家居事业部</option>
-                                <option value="商照事业部">商照事业部</option>
-                                <option value="海外事业部">海外事业部</option>
-                                <option value="大客户部">大客户部</option>
-                            </select>
+                            <select name="sortId" id="sort" lay-filter="sort"></select>
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="年月" id="ym">
-                            <input type="hidden" name="year" id="year">
-                            <input type="hidden" name="month" id="month">
+                            <select name="sortItemId" id="sortItem" lay-filter="sortItem"></select>
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
