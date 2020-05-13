@@ -1,8 +1,14 @@
 package com.pp.ppgraduate.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.List;
 
+@TableName("g_order")
 public class OrderModel {
+    @TableId(type = IdType.AUTO)
     private int orderId;
     private String openId;
     private int goodsId;

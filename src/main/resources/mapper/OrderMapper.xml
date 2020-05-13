@@ -32,7 +32,11 @@
         SELECT * FROM db_car.g_order o
         LEFT JOIN db_car.g_order_item oi ON o.order_id = oi.order_id
         LEFT JOIN db_car.g_goods g ON g.goods_id = oi.goods_id
-        WHERE open_id = #{openId}
+        <where>
+            <if test="openId != null and openId != ''">
+                open_id = #{openId}
+            </if>
+        </where>
     </select>
 
 </mapper>

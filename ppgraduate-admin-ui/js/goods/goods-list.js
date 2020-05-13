@@ -101,6 +101,7 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
                     success: function(resp) {
                         if(resp && resp.success){
                             layer.msg('删除成功', {icon: 1});
+                            reloadTable();
                         } else {
                             layer.msg(resp.msg, {icon: 2});
                         }
