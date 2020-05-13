@@ -1,5 +1,6 @@
 package com.pp.ppgraduate.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pp.ppgraduate.dao.UserDao;
 import com.pp.ppgraduate.entity.UserModel;
 import com.pp.ppgraduate.entity.WeChatModel;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserDao, UserModel> implements UserService {
     @Autowired
     UserDao userDao;
 

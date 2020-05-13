@@ -1,10 +1,7 @@
 package com.fengtoos.ppgraduate.ctrl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fengtoos.ppgraduate.auth.resp.RestResponseBo;
-import com.pp.ppgraduate.entity.GoodsModel;
 import com.pp.ppgraduate.entity.OrderModel;
 import com.pp.ppgraduate.entity.UserModel;
 import com.pp.ppgraduate.service.OrderService;
@@ -16,10 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/order")
@@ -33,7 +27,6 @@ public class AdminOrderController {
 
     /*查询指定订单*/
     @PostMapping("/selectOrder")
-    @ResponseBody
     public Result selectOrder(@RequestBody OrderModel orderModel){
         if (EmptyUtil.isEmpty(orderModel)){
             return Result.error("订单信息为空");
@@ -58,8 +51,13 @@ public class AdminOrderController {
                                UserModel model){
         Page<OrderModel> page = new Page<>(pageNumber, pageSize);
         List<OrderModel> records = this.orderService.selectAllOrder(model);
-        page.setTotal(records.size());
-        page.setRecords(records.subList((pageNumber - 1)*pageSize, pageNumber*pageSize>records.size()?records.size():pageNumber*pageSize));
+
+        int length = records.size(),
+            begin = (pageNumber - 1)*pageSize>length?0:(pageNumber - 1)*pageSize,
+            end = pageNumber*pageSize>records.size()?records.size():pageNumber*pageSize;
+
+        page.setTotal(length);
+        page.setRecords(records.subList(begin, end));
 //        Map<String, Object> params = new HashMap<>();
 //        if(model.getSortId() != 0){
 //            params.put("sort_id", model.getSortId());

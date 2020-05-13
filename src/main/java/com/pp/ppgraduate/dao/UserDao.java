@@ -1,11 +1,10 @@
 package com.pp.ppgraduate.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pp.ppgraduate.entity.UserModel;
 import com.pp.ppgraduate.entity.WeChatModel;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserDao {
+public interface UserDao extends BaseMapper<UserModel> {
     public UserModel login(String openid);
 
     public boolean insertUser(WeChatModel weChatModel);

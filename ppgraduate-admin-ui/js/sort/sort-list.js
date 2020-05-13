@@ -61,6 +61,8 @@ layui.use(['form', 'eleTree', 'layer'], function () {
             parent: "",
             parentName: "根目录",
             name: "",
+            sortId: "",
+            sortItemId: ""
         })
         $("#icon-show").attr("class", "")
     }
@@ -91,6 +93,7 @@ layui.use(['form', 'eleTree', 'layer'], function () {
             parent: d.data.sortId,
             parentName: d.data.sortName,
             sortName: "",
+            sortItemId: ""
         })
         $("#icon-show").attr("class", "")
     })
@@ -164,13 +167,17 @@ layui.use(['form', 'eleTree', 'layer'], function () {
     //监听提交
     form.on('submit(submit)', function(data) {
         let parent = data.field.parent;
-        let param = {sortName: data.field.sortName};
+        let param = {
+            sortName: data.field.sortName,
+            sortId: data.field.sortId==""?null:data.field.sortId
+        };
         let url = base_path + 'admin/sort/add';
         if(parent){
             url = base_path + 'admin/sort/addItem';
             param = {
                 sortItemName: data.field.sortName,
-                sortId: parent
+                sortId: parent,
+                sortItemId: data.field.sortItemId==""?null:data.field.sortItemId
             }
         }
         fengtoos.server({

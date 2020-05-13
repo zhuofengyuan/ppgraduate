@@ -8,7 +8,7 @@ layui.use(['form', 'layer', 'eleTree', 'transfer'],
         var getValueList = function(){
             let org = [];
             fengtoos.server({
-                url: base_path + "user/role/" + fengtoos.getQueryString("id"),
+                url: base_path + "user2/role/" + fengtoos.getQueryString("id"),
                 type: 'get',
                 async : false,
                 success : function(resp) {
@@ -27,7 +27,7 @@ layui.use(['form', 'layer', 'eleTree', 'transfer'],
         var getUserList = function(){
             let val = null;
             fengtoos.server({
-                url:base_path + 'user/list',
+                url:base_path + 'user2/list',
                 data: {page: 0, limit: 10000},
                 type: 'get',
                 success: function(resp) {
@@ -47,7 +47,7 @@ layui.use(['form', 'layer', 'eleTree', 'transfer'],
             ,data: getUserList()
             ,value: getValueList()
             ,title: ["可分配用户", "已分配用户"]
-            ,showSearch: true
+            // ,showSearch: true
             ,text: {
                 none: '无数据' //没有数据时的文案
                 ,searchNone: '无匹配数据' //搜索无匹配数据时的文案

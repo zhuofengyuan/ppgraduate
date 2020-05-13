@@ -10,8 +10,8 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
     let userTable = table.render({
         elem: '#admin_table'
         , id: 'table'
-        , url: base_path + 'admin/order/list' //数据接口
-        , title: '商品表'
+        , url: base_path + 'admin/member/list' //数据接口
+        , title: '会员表'
         , page: true //开启分页
         // ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
         // ,totalRow: true //开启合计行
@@ -28,30 +28,10 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
         , headers: getToken()
         , cols: [[ //表头
             {type: 'checkbox'}
-            , {field: 'orderId', title: '订单编码'}
-            , {field: 'goodsName', title: '商品名称'}
-            , {title: '图片', templet: function(v){
-                    return '<img class="layui-nav-img" src="' + image_path + v.goodsPhoto + '">';
+            , {field: 'userName', title: '用户名称'}
+            , {title: '用户头像', templet: function(v){
+                    return '<img class="layui-nav-img" src="' + v.avatar + '">';
                 }}
-            , {field: 'price', title: '总金额'}
-            , {title: '下单人', templet : function(v) {
-                var rs = {};
-                    fengtoos.server({
-                        url: base_path + 'admin/member/' + v.openId,
-                        type: 'get',
-                        async : false,
-                        success: function(resp) {
-                            if(resp && resp.success){
-                                rs = resp.payload.userName;
-                            } else {
-                                layer.msg(resp.msg, {icon: 2});
-                            }
-                        }
-                    })
-                    return rs;
-            }}
-            , {field: 'goodsNum', title: '下单数量'}
-            , {field: 'orderTime', title: '下单时间'}
         ]]
     });
     $("#admin_add").click(function () {

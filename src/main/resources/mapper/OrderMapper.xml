@@ -34,7 +34,10 @@
         LEFT JOIN db_car.g_goods g ON g.goods_id = oi.goods_id
         <where>
             <if test="openId != null and openId != ''">
-                open_id = #{openId}
+                AND o.open_id = #{openId}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND g.goods_name LIKE '%${goodsName}%'
             </if>
         </where>
     </select>
