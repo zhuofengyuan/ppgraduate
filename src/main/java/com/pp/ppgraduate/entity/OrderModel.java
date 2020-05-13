@@ -25,6 +25,17 @@ public class OrderModel {
     private String goodsPhoto;
     private List<OrderItemModel> orderItemModels;
 
+    /** 用于数据统计的字段 */
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public int getOrderId() {
         return orderId;
     }

@@ -42,4 +42,22 @@
         </where>
     </select>
 
+    <select id="getBiByOrderQty" resultType="com.pp.ppgraduate.entity.OrderModel">
+        SELECT DATE_FORMAT(a.order_time,'%Y-%m-%d') AS time,COUNT(1) order_num FROM (
+            SELECT o.*,oi.order_item_id,oi.goods_num FROM db_car.g_order o
+                LEFT JOIN db_car.g_order_item oi ON o.order_id = oi.order_id
+                LEFT JOIN db_car.g_goods g ON g.goods_id = oi.goods_id
+        ) a  GROUP BY  time
+    </select>
+
+    <select id="getBiByOrderPrice" resultType="com.pp.ppgraduate.entity.OrderModel">
+        SELECT DATE_FORMAT(order_time,'%Y-%m-%d') AS time,SUM(price) price FROM `g_order`   GROUP BY  time
+    </select>
+
+    <select id="getCountByOrderStatus" resultType="com.pp.ppgraduate.entity.OrderModel">
+        SELECT o.order_status, COUNT(oi.order_item_id) order_num FROM db_car.g_order o
+        LEFT JOIN db_car.g_order_item oi ON o.order_id = oi.order_id
+        LEFT JOIN db_car.g_goods g ON g.goods_id = oi.goods_id
+        GROUP BY o.order_status
+    </select>
 </mapper>

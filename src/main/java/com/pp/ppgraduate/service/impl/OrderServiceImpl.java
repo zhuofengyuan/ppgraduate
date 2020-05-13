@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -66,5 +68,68 @@ public class OrderServiceImpl implements OrderService {
 
     public boolean deleteOrder(OrderModel orderModel){
         return orderDao.deleteOrder(orderModel);
+    }
+
+    @Override
+    public Map<String, Object> getBiByOrderQty() {
+        List<OrderModel> data = this.orderDao.getBiByOrderQty();
+
+        Map<String, Object> rs = new HashMap<>();
+        List<String> days = DateUtil.getDays(7);
+        List<Integer> values = new ArrayList<>();
+        for(String day : days){
+            List<OrderModel> s = data.stream().filter(o -> o.getTime().equals(day)).collect(Collectors.toList());
+            if(s.size() > 0){
+                values.add(s.get(0).getOrderNum());
+            } else {
+                values.add(0);
+            }
+        }
+        rs.put("days", days);
+        rs.put("values", values);
+        return rs;
+    }
+
+    @Override
+    public Map<String, Object> getBiByOrderPrice() {
+        List<OrderModel> data = this.orderDao.getBiByOrderPrice();
+        Map<String, Object> rs = new HashMap<>();
+        List<String> days = DateUtil.getDays(7);
+        List<Double> values = new ArrayList<>();
+        for(String day : days){
+            List<OrderModel> s = data.stream().filter(o -> o.getTime().equals(day)).collect(Collectors.toList());
+            if(s.size() > 0){
+                values.add(s.get(0).getPrice());
+            } else {
+                values.add(Double.valueOf("0"));
+            }
+        }
+        rs.put("days", days);
+        rs.put("values", values);
+        return rs;
+    }
+
+    @Override
+    public Map<String, Integer> getCountByOrderStatus() {
+        List<OrderModel> list = this.orderDao.getCountByOrderStatus();
+
+        Map<String, Integer> values = new HashMap<>();
+        String status = null;
+        Integer sum = 0;
+        for(OrderModel item : list){
+            status = item.getOrderStatus();
+            if("未支付".equals(status)){
+                values.put("unpay", item.getOrderNum());
+                sum += item.getOrderNum();
+            } else if("已支付".equals(status)){
+                values.put("payed", item.getOrderNum());
+                sum += item.getOrderNum();
+            } else {
+                values.put("shipped", item.getOrderNum());
+                sum += item.getOrderNum();
+            }
+        }
+        values.put("all", sum);
+        return values;
     }
 }

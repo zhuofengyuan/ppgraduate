@@ -17,4 +17,23 @@ public interface OrderDao {
     public boolean updateOrder(OrderModel orderModel);
 
     public boolean deleteOrder(OrderModel orderModel);
+
+    //-------------- BI数据接口 -------------
+    /**
+     * 根据时间分开获取所有订单下单数量
+     * @return
+     */
+    List<OrderModel> getBiByOrderQty();
+
+    /**
+     * 根据时间分开获取所有订单下单金额
+     * @return
+     */
+    List<OrderModel> getBiByOrderPrice();
+
+    /**
+     *
+     * @return
+     */
+    List<OrderModel> getCountByOrderStatus();
 }

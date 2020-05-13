@@ -67,4 +67,19 @@ public class AdminOrderController {
 //        }
         return RestResponseBo.ok(page, 0);
     }
+
+    @GetMapping("/bi/qty")
+    public RestResponseBo bi2qty(){
+        return RestResponseBo.ok(this.orderService.getBiByOrderQty());
+    }
+
+    @GetMapping("/bi/price")
+    public RestResponseBo bi2price(){
+        return RestResponseBo.ok(this.orderService.getBiByOrderPrice());
+    }
+
+    @GetMapping("/count")
+    public RestResponseBo count(){
+        return RestResponseBo.ok(this.orderService.getCountByOrderStatus());
+    }
 }
