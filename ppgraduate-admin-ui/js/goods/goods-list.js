@@ -75,6 +75,7 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
             , {field: 'sortItemName', title: '子分类'}
             , {field: 'goodsPrice', title: '金额'}
             , {field: 'goodsStock', title: '库存'}
+            , {field: 'goodsSell', title: '销量'}
             , {title: '操作', align: 'center', toolbar: '#barUser'}
         ]]
     });

@@ -1,8 +1,11 @@
 package com.pp.ppgraduate.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pp.ppgraduate.dao.GoodsDao;
 import com.pp.ppgraduate.dao.OrderDao;
 import com.pp.ppgraduate.dao.OrderItemDao;
 import com.pp.ppgraduate.dao.TrolleyDao;
+import com.pp.ppgraduate.entity.GoodsModel;
 import com.pp.ppgraduate.entity.OrderItemModel;
 import com.pp.ppgraduate.entity.OrderModel;
 import com.pp.ppgraduate.entity.UserModel;
@@ -23,12 +26,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderDao orderDao;
-
     @Autowired
     OrderItemDao orderItemDao;
-
     @Autowired
     TrolleyDao trolleyDao;
+    @Autowired
+    GoodsDao goodsDao;
 
     public boolean insertOrder(OrderModel orderModel){
         if(orderModel.getTrolleyId()!=0){
@@ -47,7 +50,18 @@ public class OrderServiceImpl implements OrderService {
         for(OrderItemModel orderItemModel:orderModel.getOrderItemModels()){
             orderItemModel.setOrderId(orderId);
         }
-        return orderItemDao.insertOrderItem(orderModel);
+
+        boolean rs = orderItemDao.insertOrderItem(orderModel);
+        //已支付商品对销量加一
+        if("已支付".equals(orderModel.getOrderStatus())){
+            List<OrderItemModel> items = orderModel.getOrderItemModels();
+            for(OrderItemModel item : items){
+                GoodsModel g = this.goodsDao.selectById(item.getGoodsId());
+                g.setGoodsSell(g.getGoodsSell() + item.getGoodsNum());
+                this.goodsDao.update(g, new QueryWrapper<GoodsModel>().eq("goods_id", item.getGoodsId()));
+            }
+        }
+        return rs;
     }
 
     public OrderModel selectOrder(OrderModel orderModel){
@@ -63,6 +77,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public boolean updateOrder(OrderModel orderModel){
+        //已支付商品对销量加一
+        if("已支付".equals(orderModel.getOrderStatus())){
+            List<OrderItemModel> items = orderModel.getOrderItemModels();
+            for(OrderItemModel item : items){
+                GoodsModel g = this.goodsDao.selectById(item.getGoodsId());
+                g.setGoodsSell(g.getGoodsSell() + item.getGoodsNum());
+                this.goodsDao.update(g, new QueryWrapper<GoodsModel>().eq("goods_id", item.getGoodsId()));
+            }
+        }
         return orderDao.updateOrder(orderModel);
     }
 

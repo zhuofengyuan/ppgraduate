@@ -39,7 +39,7 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
                     fengtoos.server({
                         url: base_path + 'admin/member/' + v.openId,
                         type: 'get',
-                        async : false,
+                        async : true,
                         success: function(resp) {
                             if(resp && resp.success){
                                 rs = resp.payload.userName;

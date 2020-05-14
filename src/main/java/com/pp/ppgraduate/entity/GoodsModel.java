@@ -23,4 +23,5 @@ public class GoodsModel {
     private int goodsWeight;
     private String description;
     private int goodsStock;
+    private int goodsSell;
 }
