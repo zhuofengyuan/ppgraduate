@@ -39,9 +39,10 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
                     fengtoos.server({
                         url: base_path + 'admin/member/' + v.openId,
                         type: 'get',
-                        async : true,
+                        async : false,
                         success: function(resp) {
                             if(resp && resp.success){
+                                console.log(resp)
                                 rs = resp.payload.userName;
                             } else {
                                 layer.msg(resp.msg, {icon: 2});

@@ -70,6 +70,7 @@ layui.use(['laydate', 'table'], function () {
                     success: function(resp) {
                         if(resp && resp.success){
                             layer.msg('删除成功', {icon: 1});
+                            reloadTable()
                         } else {
                             layer.msg(resp.msg, {icon: 2});
                         }
@@ -77,7 +78,7 @@ layui.use(['laydate', 'table'], function () {
                 })
             });
         } else if (layEvent === 'edit') {
-            layer.msg('编辑操作');
+            xadmin.open('编辑任务','./admin-add.html?id=' + data.id,590,530)
         }
     });
     //监听锁定操作

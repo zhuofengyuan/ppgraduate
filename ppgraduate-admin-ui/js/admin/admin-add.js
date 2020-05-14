@@ -35,6 +35,19 @@ layui.use(['form', 'layer', 'upload'],
             }
         });
 
+        //渲染表单
+        if(fengtoos.getQueryString("id")){
+
+            fengtoos.server({
+                url: base_path + 'user2/' + fengtoos.getQueryString("id"),
+                type: 'get',
+                success: function (data) {
+                    form.val("main-form", data.payload);
+                    $("#demo1").attr('src', image_path + data.payload.logo);
+                }
+            })
+        }
+
         //自定义验证规则
         form.verify({
             nikename: function(value) {
@@ -42,7 +55,14 @@ layui.use(['form', 'layer', 'upload'],
                     return '昵称至少得5个字符啊';
                 }
             },
-            pass: [/(.+){6,12}$/, '密码必须6到12位'],
+            pass: function(value) {
+                if(!fengtoos.getQueryString("id")){
+                    var flag = /(.+){6,12}$/.test(value);
+                    if(!flag){
+                        return '密码必须6到12位';
+                    }
+                }
+            },
             repass: function(value) {
                 if ($('#L_pass').val() != $('#L_repass').val()) {
                     return '两次密码不一致';

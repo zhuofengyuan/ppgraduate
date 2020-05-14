@@ -31,14 +31,25 @@ public class User2Controller {
         return RestResponseBo.ok(this.userService.page(page), 0);
     }
 
+    @GetMapping("/{id}")
+    public RestResponseBo findOne(@PathVariable String id){
+        User u = this.userService.getById(id);
+        u.setPassword(null);
+        return RestResponseBo.ok(u);
+    }
+
     @PostMapping("/add")
     public RestResponseBo add(@RequestBody User entity){
         entity.setStatus(1);
         entity.setCreateDate(LocalDateTime.now());
         entity.setScreenName(entity.getName());
         entity.setLogo(StringUtils.isEmpty(entity.getLogo())?defalutAvaterUrl:entity.getLogo());
-        entity.setPassword(encoder.encode(entity.getPassword()));
-        return RestResponseBo.normal(this.userService.save(entity));
+        if(StringUtils.isNotEmpty(entity.getPassword())){
+            entity.setPassword(encoder.encode(entity.getPassword()));
+        } else {
+            entity.setPassword(null);
+        }
+        return RestResponseBo.normal(this.userService.saveOrUpdate(entity));
     }
 
     @PostMapping("/update")

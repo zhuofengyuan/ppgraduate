@@ -32,7 +32,7 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form">
+                <form class="layui-form" lay-filter="main-form">
                   <div class="layui-form-item">
                       <label for="username" class="layui-form-label">
                           <span class="x-red">*</span>登录名
@@ -40,6 +40,7 @@
                       <div class="layui-input-inline">
                           <input type="text" id="username" name="username" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
+                          <input type="hidden" name="id">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>将会成为您唯一的登入名
@@ -47,7 +48,7 @@
                   </div>
                   <div class="layui-form-item">
                       <label for="phone" class="layui-form-label">
-                          <span class="x-red">*</span>昵称
+                          <spant class="x-red">*</spant>昵称
                       </label>
                       <div class="layui-input-inline">
                           <input type="text" id="name" name="name" required="" autocomplete="off" class="layui-input">
@@ -105,7 +106,7 @@
                       <label for="L_repass" class="layui-form-label">
                       </label>
                       <button  class="layui-btn" lay-filter="add" lay-submit="">
-                          增加
+                          保存
                       </button>
                   </div>
               </form>
