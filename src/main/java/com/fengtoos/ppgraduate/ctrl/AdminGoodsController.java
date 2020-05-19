@@ -11,6 +11,7 @@ import com.pp.ppgraduate.entity.SortModel;
 import com.pp.ppgraduate.service.GoodsService;
 import com.pp.ppgraduate.service.SortItemService;
 import com.pp.ppgraduate.service.SortService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,6 +77,12 @@ public class AdminGoodsController {
                 throw new FengtoosException("该二级分类已经不存在！");
             }
             entity.setSortItemName(item.getSortItemName());
+        }
+
+        Integer goodsId = entity.getGoodsId();
+        if(goodsId != 0){
+            GoodsModel orgEntity = this.goodsService.getById(goodsId);
+            entity.setGoodsSell(orgEntity==null?0:orgEntity.getGoodsSell());
         }
         return RestResponseBo.normal(this.goodsService.saveOrUpdate(entity));
     }

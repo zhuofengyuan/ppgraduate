@@ -26,7 +26,11 @@ public class AspectLog {
 
     private static Logger logger = LoggerFactory.getLogger(AspectLog.class);
 
-    @Pointcut("execution(* com.pp.ppgraduate.controller..*.*(..))")
+    @Pointcut(
+        "execution(* com.pp.ppgraduate.controller..*.*(..))||" +
+        "execution(* com.fengtoos.ppgraduate.auth.web..*.*(..))||" +
+        "execution(* com.fengtoos.ppgraduate.ctrl..*.*(..))"
+    )
     public void log() {
     }
 
