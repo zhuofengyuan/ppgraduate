@@ -16,6 +16,8 @@ layui.use(['form', 'layer', 'upload'],
                 obj.preview(function(index, file, result){
                     $('#demo1').attr('src', result); //图片链接（base64）
                 });
+
+                console.log(obj);
             }
             ,done: function(res){
                 //如果上传失败
