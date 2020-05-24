@@ -9,8 +9,9 @@
     </insert>
 
     <select id="login" parameterType="String" resultType="com.pp.ppgraduate.entity.UserModel">
-        SELECT * FROM db_car.g_user
-        WHERE open_id = #{openid}
+        SELECT u.*, b.id brand, b.name brand_name FROM db_car.g_user u
+        LEFT JOIN g_brand b on b.id = u.brand
+        WHERE u.open_id = #{openid}
     </select>
 
     <update id="updateUser" parameterType="com.pp.ppgraduate.entity.UserModel">
@@ -28,6 +29,7 @@
     </update>
 
     <select id="selectUser" parameterType="com.pp.ppgraduate.entity.UserModel" resultType="com.pp.ppgraduate.entity.UserModel">
-        SELECT * FROM db_car.g_user WHERE open_id = #{openid}
+        SELECT u.*, b.id brand, b.name brand_name FROM db_car.g_user u
+        LEFT JOIN g_brand b on b.id = u.brand WHERE u.open_id = #{openid}
     </select>
 </mapper>

@@ -21,7 +21,7 @@
           <span class="layui-breadcrumb">
             <a href="">首页</a>
             <a>
-              <cite>管理员列表</cite></a>
+              <cite>车型列表</cite></a>
           </span>
           <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
             <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -33,13 +33,7 @@
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5">
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                    <input type="text" name="name"  placeholder="请输入车型" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <button class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
@@ -47,21 +41,15 @@
                             </form>
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./admin-add.html',650,550)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加车型','./brand-add.html',590,530)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body ">
                             <div style="height: 100%">
                                 <table class="layui-table" id="admin_table" lay-filter="table"></table>
 
                                 <script id="barUser" type="text/html">
-                                    <!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
                                     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                                </script>
-
-                                <script type="text/html" id="checkboxTpl">
-                                    <input type="checkbox" name="lock" value="{{d.id}}" title="禁用" lay-filter="lockDemo" {{ d.status == 2 ? 'checked' : '' }}>
                                 </script>
                             </div>
                         </div>
@@ -70,5 +58,5 @@
             </div>
         </div> 
     </body>
-    <script type="text/javascript" src="./js/admin/admin-list.js"></script>
+    <script type="text/javascript" src="./js/brand/brand-list.js"></script>
 </html>

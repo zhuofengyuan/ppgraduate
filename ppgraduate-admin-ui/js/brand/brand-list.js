@@ -6,24 +6,12 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
         $ = layui.jquery; //jquery
     window.$ = $;
 
-    //年月选择器
-    laydate.render({
-        elem: '#ym'
-        ,type: 'month'
-        ,format: 'yyyy年MM月'
-        ,theme: '#393D49'
-        ,done: function(value, date, endDate){
-            $('#year').val(date.year)
-            $('#month').val(date.month)
-        }
-    });
-
     //执行一个 table 实例
     let userTable = table.render({
         elem: '#admin_table'
         , id: 'table'
-        , url: base_path + 'task/list' //数据接口
-        , title: '用户表'
+        , url: base_path + 'admin/brand/list' //数据接口
+        , title: '车型表'
         , page: true //开启分页
         // ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
         // ,totalRow: true //开启合计行
@@ -40,17 +28,16 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
         , headers: getToken()
         , cols: [[ //表头
             {type: 'checkbox'}
-            , {field: 'dept', title: '事业部名称'}
-            , {field: 'province', title: '省份'}
-            , {field: 'yearmonth', title: '年月', templet: function(d){
-                return d.year + '年' + d.month + '月';
-            }}
-            , {field: 'amount', title: '金额'}
+            , {field: 'name', title: '名称'}
+            , {title: 'LOGO', templet: function(v){
+                    return '<img class="layui-nav-img" src="' + image_path + v.image + '">';
+                }}
+            , {field: 'sort', title: '序号'}
             , {title: '操作', align: 'center', toolbar: '#barUser'}
         ]]
     });
     $("#admin_add").click(function () {
-        x_admin_show_back({title: '添加任务', url: './task-add.html', end: function () {
+        x_admin_show_back({title: '添加商品', url: './brand-add.html', end: function () {
                 reloadTable();
             }
         });
@@ -67,11 +54,12 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
                 // obj.del(); //删除对应行（tr）的DOM结构
                 //向服务端发送删除指令
                 fengtoos.server({
-                    url: base_path + 'task/' + data.id,
+                    url: base_path + 'admin/brand/' + data.id,
                     type: 'delete',
                     success: function(resp) {
                         if(resp && resp.success){
                             layer.msg('删除成功', {icon: 1});
+                            reloadTable();
                         } else {
                             layer.msg(resp.msg, {icon: 2});
                         }
@@ -80,13 +68,19 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
                 })
             });
         } else if (layEvent === 'edit') {
-            xadmin.open('编辑任务','./task-add.html?id=' + data.id,590,530)
+            xadmin.open('编辑商品','./brand-add.html?id=' + data.id,590,530)
         }
     });
 
     //监听提交
     form.on('submit(search)', function(data) {
-        table.reload('table', {where: data.field})
+        var params = data.field;
+        console.log(params);
+        if(params.sortItemId == ""){
+            params.sortItemId = 0;
+        }
+        table.reload('table', {where: params})
         return false;
     });
+
 });
