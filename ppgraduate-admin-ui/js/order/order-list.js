@@ -31,7 +31,7 @@ layui.use(['laydate', 'table', 'layer', 'form'], function () {
             , {field: 'orderId', title: '订单编码'}
             , {field: 'goodsName', title: '商品名称'}
             , {title: '图片', templet: function(v){
-                    return '<img class="layui-nav-img" src="' + image_path + v.goodsPhoto + '">';
+                    return '<img class="layui-nav-img" src="'  + v.goodsPhoto + '">';
                 }}
             , {field: 'price', title: '总金额'}
             , {title: '下单人', templet : function(v) {

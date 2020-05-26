@@ -3,7 +3,7 @@
 <mapper namespace="com.pp.ppgraduate.dao.CommentDao">
     <insert id="insertComment" parameterType="com.pp.ppgraduate.entity.CommentModel">
         insert into db_car.g_comment
-        (comment_content, goods_id, open_id, commentTime, attitude)
+        (comment_content, goods_id, open_id, comment_time, attitude)
         values
         (#{commentContent}, #{goodsId}, #{openId}, #{commentTime}, #{attitude})
     </insert>

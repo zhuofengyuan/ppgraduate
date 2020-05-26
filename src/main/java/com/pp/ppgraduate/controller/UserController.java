@@ -25,10 +25,10 @@ public class UserController {
 
     private Logger logger = Logger.getLogger(this.getClass());
 
-//    private static final String APPID = "wxc56aa70bdeb3f75d";
-    private static final String APPID = "wxe50169ffe4555ed7";
-//    private static final String SECRET = "c85078e3a4224f03c5b25f9919bbf8da";
-    private static final String SECRET = "59d8d4a9b4bc945016340e5e01728657";
+    private static final String APPID = "wxc56aa70bdeb3f75d";
+//    private static final String APPID = "wxe50169ffe4555ed7";
+    private static final String SECRET = "c85078e3a4224f03c5b25f9919bbf8da";
+//    private static final String SECRET = "59d8d4a9b4bc945016340e5e01728657";
 
     @Autowired
     UserService userService;

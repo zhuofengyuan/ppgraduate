@@ -1,4 +1,3 @@
-// var base_path = 'http://zm.zsmls.com/';
 // var base_path = 'http://localhost:7777/';
 var base_path = 'https://fengtoos.ittun.com/';
 var image_path = base_path + 'file/image/';

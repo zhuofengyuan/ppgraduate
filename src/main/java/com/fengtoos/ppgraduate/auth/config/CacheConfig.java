@@ -1,4 +1,4 @@
-package com.zhuofengyuan.wechat.shop.config;
+package com.fengtoos.ppgraduate.auth.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import java.lang.reflect.Method;
