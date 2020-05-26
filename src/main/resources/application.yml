@@ -39,7 +39,6 @@ spring:
 #    default-property-inclusion: non_null
 #
 
-# 2020.05.10 fengtoos annotation
 #mybatis:
 #  typeAliasesPackagecom: com.pp.ppgraduate.dao.*
 #  mapperLocations: classpath:mapper/*.xml

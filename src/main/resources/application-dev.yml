@@ -35,6 +35,8 @@ fengtoos:
       - /sort
       - /trolley
       - /user
+      - /brand
+      - /test
 
 mybatis-plus:
   mapperLocations: classpath*:mapper/*Mapper.xml

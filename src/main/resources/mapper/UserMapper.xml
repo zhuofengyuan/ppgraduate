@@ -9,25 +9,30 @@
     </insert>
 
     <select id="login" parameterType="String" resultType="com.pp.ppgraduate.entity.UserModel">
-        SELECT * FROM db_car.g_user
-        WHERE open_id = #{openid}
+        SELECT u.*, b.id brand, b.name brand_name FROM db_car.g_user u
+        LEFT JOIN g_brand b on b.id = u.brand
+        WHERE u.open_id = #{openid}
     </select>
 
     <update id="updateUser" parameterType="com.pp.ppgraduate.entity.UserModel">
         UPDATE db_car.g_user SET
+        <if test="brand != null and brand != ''">
+            brand = #{brand}
+        </if>
         <if test="userName != null and userName != ''">
             user_name = #{userName}
         </if>
         <if test="gender != null and gender != ''">
             gender = #{gender}
         </if>
-        <if test="avator != null and avator != ''">
+        <if test="avatar != null and avatar != ''">
             avatar = #{avatar}
         </if>
-        WHERE open_id = #{openid}
+        WHERE open_id = #{openId}
     </update>
 
     <select id="selectUser" parameterType="com.pp.ppgraduate.entity.UserModel" resultType="com.pp.ppgraduate.entity.UserModel">
-        SELECT * FROM db_car.g_user WHERE open_id = #{openid}
+        SELECT u.*, b.id brand, b.name brand_name FROM db_car.g_user u
+        LEFT JOIN g_brand b on b.id = u.brand WHERE u.open_id = #{openId}
     </select>
 </mapper>

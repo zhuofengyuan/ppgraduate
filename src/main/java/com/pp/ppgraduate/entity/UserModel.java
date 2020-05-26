@@ -15,7 +15,9 @@ public class UserModel {
     private String gender;
     private String avatar;
     private String openId;
-
+    private String brand;
+    @TableField(exist = false)
+    private String brandName;
     @TableField(exist = false)
     private String goodsName;
 }

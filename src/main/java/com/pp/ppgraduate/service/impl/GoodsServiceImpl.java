@@ -25,7 +25,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsDao, GoodsModel> implemen
     }
 
     public List<GoodsModel> selectGoodsByLike(GoodsModel goodsModel) {
-        goodsModel.setGoodsName("%" + goodsModel.getGoodsName() + "%");
         return goodsDao.selectGoodsByLike(goodsModel);
     }
 
