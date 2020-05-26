@@ -3,7 +3,14 @@
 <mapper namespace="com.pp.ppgraduate.dao.GoodsDao">
     <select id="selectGoods" parameterType="com.pp.ppgraduate.entity.GoodsModel" resultType="com.pp.ppgraduate.entity.GoodsModel">
         SELECT * FROM db_car.g_goods
-        WHERE goods_id = #{goodsId}
+        <where>
+            <if test="goodsId != null and goodsId != ''">
+                AND goods_id = #{goodsId}
+            </if>
+            <if test="brandName != null and brandName != ''">
+                AND brand LIKE '%${brandName}%'
+            </if>
+        </where>
     </select>
 
     <select id="selectGoodsByWeight" parameterType="com.pp.ppgraduate.entity.GoodsModel" resultType="com.pp.ppgraduate.entity.GoodsModel">
@@ -13,7 +20,14 @@
 
     <select id="selectGoodsByLike" parameterType="com.pp.ppgraduate.entity.GoodsModel" resultType="com.pp.ppgraduate.entity.GoodsModel">
         SELECT * FROM db_car.g_goods
-        WHERE goods_name like #{goodsName}
+        <where>
+            <if test="brandName != null and brandName != ''">
+                AND goods_brand LIKE '%${brandName}%'
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name LIKE '%${goodsName}%'
+            </if>
+        </where>
     </select>
 
     <update id="updateGoodsWeight" parameterType="com.pp.ppgraduate.entity.GoodsModel">

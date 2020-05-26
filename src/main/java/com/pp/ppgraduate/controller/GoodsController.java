@@ -5,13 +5,14 @@ import com.pp.ppgraduate.entity.RecommendModel;
 import com.pp.ppgraduate.entity.SortItemModel;
 import com.pp.ppgraduate.service.GoodsService;
 import com.pp.ppgraduate.service.SortService;
-import com.pp.ppgraduate.utils.EmptyUtil;
-import com.pp.ppgraduate.utils.MyException;
-import com.pp.ppgraduate.utils.Result;
-import com.pp.ppgraduate.utils.ResultEnum;
+import com.pp.ppgraduate.utils.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/goods")
@@ -22,9 +23,29 @@ public class GoodsController {
 
     @Autowired
     SortService sortService;
-
     @Autowired
     GoodsService goodsService;
+
+    @GetMapping("/recommendGoods")
+    public Result recommendGoods(String userId){
+        String rs = "";
+        try {
+            rs = HttpUtil.httpGet("http://localhost:5000/collaborative/" + userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<GoodsModel> recommendBooks = new ArrayList<>();
+        String[] ids = rs.split(",");
+        int length = ids.length;
+        if(ids.length > 4) {
+            length = 4;
+        }
+
+        for(int i = 0; i < length; i++) {
+            recommendBooks.add(this.goodsService.getById(Integer.parseInt(ids[i])));
+        }
+        return Result.success(recommendBooks);
+    }
 
     /*查询指定商品*/
     @PostMapping("/selectGoods")
@@ -70,7 +91,7 @@ public class GoodsController {
         if(EmptyUtil.isEmpty(goodsModel)){
             return Result.error("商品信息为空");
         }
-        if(EmptyUtil.isEmpty(goodsModel.getGoodsName())){
+        if(EmptyUtil.isEmpty(goodsModel.getGoodsName()) && StringUtils.isEmpty(goodsModel.getBrandName())){
             return Result.error("待查询商品名为空");
         }
         try{

@@ -5,7 +5,7 @@ spring:
     database: 2
     host: localhost
     port: 6379
-    password: 123
+    password:
 
   jackson:
     generator:
@@ -35,6 +35,8 @@ fengtoos:
       - /sort
       - /trolley
       - /user
+      - /brand
+      - /test
 
 mybatis-plus:
   mapperLocations: classpath*:mapper/*Mapper.xml
